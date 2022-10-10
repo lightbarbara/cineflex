@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 import Filme from "./Filme"
 
-export default function TelaInicial() {
+export default function TelaInicial({setFilmeEscolhido}) {
 
     const [movies, setMovies] = useState([])
 
@@ -21,7 +21,7 @@ export default function TelaInicial() {
                 <p>Selecione o filme</p>
             </div>
             <div>
-                {movies.length === 0 ? <p>Carregando...</p> : movies.map(f => <Filme nome={f.title} img={f.posterURL} id={f.id} />)}
+                {movies.length === 0 ? <p>Carregando...</p> : movies.map(f => <Filme setFilmeEscolhido={setFilmeEscolhido} nome={f.title} img={f.posterURL} id={f.id} />)}
             </div>
         </TelaInicialContainer>
     )

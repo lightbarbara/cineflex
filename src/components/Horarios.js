@@ -4,12 +4,13 @@ import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 import Footer from "./Footer"
 
-function Button({ hora, setHorarioEscolhido }) {
+function Button({ hora, data, setHorarioEscolhido }) {
     return (
         <ButtonContainer>
-            <Link onClick={() => setHorarioEscolhido(hora.name)} to={`/sessao/${hora.id}`}>
+            <Link onClick={() => setHorarioEscolhido([data, hora.name])} to={`/sessao/${hora.id}`}>
                 {hora.name}
             </Link>
+            {console.log([data, hora.name])}
         </ButtonContainer>
     )
 }
@@ -19,7 +20,7 @@ function Horario({ h, setHorarioEscolhido }) {
         <HorarioContainer>
             <p>{`${h.weekday} - ${h.date}`}</p>
             <div>
-                {h.showtimes.map(hora => <Button setHorarioEscolhido={setHorarioEscolhido} hora={hora} />)}
+                {h.showtimes.map(hora => <Button data={h.date} setHorarioEscolhido={setHorarioEscolhido} hora={hora} />)}
             </div>
         </HorarioContainer>
     )

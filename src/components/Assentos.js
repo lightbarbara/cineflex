@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "./Footer";
 
-function Assento({ a, assentosEscolhidos, setAssentosEscolhidos }) {
+function Assento({ a, assentosEscolhidos, setAssentosEscolhidos, numerosEscolhidos, setNumerosEscolhidos }) {
 
     function escolherAssento(a) {
         if (a.isAvailable === false) {
@@ -15,6 +15,7 @@ function Assento({ a, assentosEscolhidos, setAssentosEscolhidos }) {
             return
         }
         setAssentosEscolhidos([...assentosEscolhidos, a.id])
+        setNumerosEscolhidos([...numerosEscolhidos, a.name])
     }
 
     return (
@@ -24,15 +25,9 @@ function Assento({ a, assentosEscolhidos, setAssentosEscolhidos }) {
     )
 }
 
-function Form({assentosEscolhidos, setAssentosEscolhidos}) {
+function Form({assentosEscolhidos, setAssentosEscolhidos, form, setForm}) {
 
     const navigate = useNavigate()
-
-    const [form, setForm] = useState({
-        ids: [],
-        name: '',
-        cpf: ''
-    })
 
     function handleForm(e) {
         setForm({
@@ -48,6 +43,8 @@ function Form({assentosEscolhidos, setAssentosEscolhidos}) {
             ...form,
             ids: assentosEscolhidos
         }
+
+        setForm(newForm)
 
         if (newForm.ids.length !== 0) {
             const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', newForm)
@@ -71,7 +68,7 @@ function Form({assentosEscolhidos, setAssentosEscolhidos}) {
     )
 }
 
-export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos }) {
+export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos, form, setForm, numerosEscolhidos, setNumerosEscolhidos }) {
 
     const params = useParams()
 
@@ -91,7 +88,7 @@ export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos }) 
                 <p>Selecione o(s) assento(s)</p>
             </div>
             <div>
-                {assentos.length === 0 ? <p>Carregando...</p> : assentos.seats.map(a => <Assento assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} a={a} />)}
+                {assentos.length === 0 ? <p>Carregando...</p> : assentos.seats.map(a => <Assento assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} a={a} numerosEscolhidos={numerosEscolhidos} setNumerosEscolhidos={setNumerosEscolhidos} />)}
             </div>
             <div>
                 <Opcao>
@@ -107,7 +104,7 @@ export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos }) 
                     <p>Indisponível</p>
                 </Opcao>
             </div>
-            <Form assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos}/>
+            <Form assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} form={form} setForm={setForm}/>
             {assentos.length === 0 ? '' : <Footer info={assentos} />}
         </AssentosContainer>
     )

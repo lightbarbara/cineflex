@@ -11,8 +11,14 @@ import Sucesso from './Sucesso'
 export default function App() {
 
     const [filmeEscolhido, setFilmeEscolhido] = useState('')
-    const [horarioEscolhido, setHorarioEscolhido] = useState('')
+    const [horarioEscolhido, setHorarioEscolhido] = useState([])
     const [assentosEscolhidos, setAssentosEscolhidos] = useState([])
+    const [numerosEscolhidos, setNumerosEscolhidos] = useState([])
+    const [form, setForm] = useState({
+        ids: [],
+        name: '',
+        cpf: ''
+    })
 
     return (
         <BrowserRouter>
@@ -22,8 +28,8 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<TelaInicial setFilmeEscolhido={setFilmeEscolhido}/>} />
                     <Route path='/filme/:idMovie' element={<Horarios setHorarioEscolhido={setHorarioEscolhido}/>} />
-                    <Route path='/sessao/:idSessao' element={<Assentos assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} />} />
-                    <Route path='sucesso' element={<Sucesso filmeEscolhido={filmeEscolhido} horarioEscolhido={horarioEscolhido} assentosEscolhidos={assentosEscolhidos} />} />
+                    <Route path='/sessao/:idSessao' element={<Assentos assentosEscolhidos={assentosEscolhidos} numerosEscolhidos={numerosEscolhidos} setNumerosEscolhidos={setNumerosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} form={form} setForm={setForm} />} />
+                    <Route path='sucesso' element={<Sucesso setFilmeEscolhido={setFilmeEscolhido} filmeEscolhido={filmeEscolhido} setHorarioEscolhido={setHorarioEscolhido} horarioEscolhido={horarioEscolhido} setAssentosEscolhidos={setAssentosEscolhidos} setNumerosEscolhidos={setNumerosEscolhidos} numerosEscolhidos={numerosEscolhidos} setForm={setForm} form={form} />} />
                 </Routes>
             </AppContainer>
         </BrowserRouter>
