@@ -2,8 +2,9 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
+import Footer from "./Footer"
 
-function Button({hora, setHorarioEscolhido}) {
+function Button({ hora, setHorarioEscolhido }) {
     return (
         <ButtonContainer>
             <Link onClick={() => setHorarioEscolhido(hora.name)} to={`/sessao/${hora.id}`}>
@@ -24,7 +25,7 @@ function Horario({ h, setHorarioEscolhido }) {
     )
 }
 
-export default function Horarios({setHorarioEscolhido}) {
+export default function Horarios({ setHorarioEscolhido }) {
 
     const params = useParams()
 
@@ -39,12 +40,13 @@ export default function Horarios({setHorarioEscolhido}) {
     }, [])
 
     return (
-        <HorariosContainer>
-            <div>
-                <p>Selecione o horário</p>
-            </div>
-            {horarios.length === 0 ? <p>Carregando...</p> : horarios.days.map(h => <Horario setHorarioEscolhido={setHorarioEscolhido} h={h} />)}
-        </HorariosContainer>
+            <HorariosContainer>
+                <div>
+                    <p>Selecione o horário</p>
+                </div>
+                {horarios.length === 0 ? <p>Carregando...</p> : horarios.days.map(h => <Horario setHorarioEscolhido={setHorarioEscolhido} h={h} />)}
+                <Footer horarios={horarios} />
+            </HorariosContainer>
     )
 }
 
@@ -54,6 +56,7 @@ flex-direction: column;
 align-items: center;
 height: inherit;
 width: inherit;
+margin-bottom: 117px;
 
 p {
     font-size: 24px;

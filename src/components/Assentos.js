@@ -53,22 +53,15 @@ function Form({assentosEscolhidos, setAssentosEscolhidos}) {
         promise.then(resposta => navigate('/sucesso'))
 
         promise.catch(err => err.response.data)
-
-        setAssentosEscolhidos([])
-        setForm({
-            ids: [],
-            name: '',
-            cpf: ''
-        })
     }
 
     return (
         <FormContainer onSubmit={sendForm}>
             <label htmlFor="name">Nome do comprador:</label>
-            <input value={form.name} name='name' required onChange={handleForm}/>
+            <input placeholder='Digite seu nome...' value={form.name} name='name' required onChange={handleForm}/>
             <label htmlFor="cpf">CPF do comprador:</label>
-            <input value={form.cpf} name='cpf' required onChange={handleForm}/>
-            <button type='submit'>submit</button>
+            <input placeholder="Digite seu CPF..." value={form.cpf} name='cpf' required onChange={handleForm}/>
+            <button type='submit'>Reservar assento(s)</button>
         </FormContainer>
     )
 }
@@ -169,5 +162,45 @@ p {
 `
 
 const FormContainer = styled.form`
+display: flex;
+width: 327px;
+flex-direction: column;
+padding: 0 24px;
+margin-top: 42px;
+gap: 5px;
+height: inherit;
 
+label {
+    color: #293845;
+    margin: 0;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+input {
+    height: 51px;
+    border-radius: 3px;
+    border: 1px solid #D4D4D4;
+}
+
+input::-webkit-input-placeholder {
+    font-style: italic;
+    padding-left: 18px;
+    color: #AFAFAF;
+    font-size: 18px
+}
+
+button {
+    background-color: #E8833A;
+    font-size: 18px;
+    font-weight: 400;
+    border: 0px;
+    width: 225px;
+    height: 43px;
+    border-radius: 3px;
+    margin-top: 22px;
+    cursor: pointer;
+    color: #FFFFFF;
+    margin: 40px auto;
+}
 `

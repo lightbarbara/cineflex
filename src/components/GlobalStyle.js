@@ -36,7 +36,7 @@ table {
     border-spacing: 0;
 }
 
-p {
+p, label {
     font-family: 'Roboto', sans-serif;
 }
 
