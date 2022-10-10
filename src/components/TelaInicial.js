@@ -21,7 +21,7 @@ export default function TelaInicial() {
                 <p>Selecione o filme</p>
             </div>
             <div>
-                {movies.length === 0 ? <p>Carregando...</p> : movies.map(f => <Filme img={f.posterURL} id={f.id} />)}
+                {movies.length === 0 ? <p>Carregando...</p> : movies.map(f => <Filme nome={f.title} img={f.posterURL} id={f.id} />)}
             </div>
         </TelaInicialContainer>
     )

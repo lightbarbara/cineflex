@@ -1,30 +1,30 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 
-function Button({hora}) {
-
-    console.log(hora)
+function Button({hora, setHorarioEscolhido}) {
     return (
         <ButtonContainer>
-            {hora.name}
+            <Link onClick={() => setHorarioEscolhido(hora.name)} to={`/sessao/${hora.id}`}>
+                {hora.name}
+            </Link>
         </ButtonContainer>
     )
 }
 
-function Horario({ h }) {
+function Horario({ h, setHorarioEscolhido }) {
     return (
         <HorarioContainer>
             <p>{`${h.weekday} - ${h.date}`}</p>
             <div>
-                {h.showtimes.map(hora => <Button hora={hora} />)}
+                {h.showtimes.map(hora => <Button setHorarioEscolhido={setHorarioEscolhido} hora={hora} />)}
             </div>
         </HorarioContainer>
     )
 }
 
-export default function Horarios() {
+export default function Horarios({setHorarioEscolhido}) {
 
     const params = useParams()
 
@@ -43,8 +43,7 @@ export default function Horarios() {
             <div>
                 <p>Selecione o horário</p>
             </div>
-            {console.log(horarios.days)}
-            {horarios.length === 0 ? <p>Carregando...</p> : horarios.days.map(h => <Horario h={h} />)}
+            {horarios.length === 0 ? <p>Carregando...</p> : horarios.days.map(h => <Horario setHorarioEscolhido={setHorarioEscolhido} h={h} />)}
         </HorariosContainer>
     )
 }
@@ -85,7 +84,7 @@ p {
 & > div {
     width: inherit;
     display: flex;
-    gap: 8px
+    gap: 8px;
 }
 `
 
@@ -93,11 +92,15 @@ const ButtonContainer = styled.button`
 background-color: #E8833A;
 font-size: 18px;
 font-weight: 400;
-color: #FFFFFF;
 border: 0px;
 width: 82px;
 height: 43px;
 border-radius: 3px;
 margin-top: 22px;
 cursor: pointer;
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
 `
