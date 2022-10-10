@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export default function Footer(props) {
-    console.log(props)
     return (
         <>
             {props.info.length !== 0 ? (
