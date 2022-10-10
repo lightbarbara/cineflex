@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "./Footer";
 
 function Assento({ a, assentosEscolhidos, setAssentosEscolhidos }) {
 
@@ -48,11 +49,15 @@ function Form({assentosEscolhidos, setAssentosEscolhidos}) {
             ids: assentosEscolhidos
         }
 
-        const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', newForm)
+        if (newForm.ids.length !== 0) {
+            const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', newForm)
 
-        promise.then(resposta => navigate('/sucesso'))
-
-        promise.catch(err => err.response.data)
+            promise.then(resposta => navigate('/sucesso'))
+    
+            promise.catch(err => err.response.data)
+        } else {
+            alert('Você não selecionou nenhum assento')
+        }
     }
 
     return (
@@ -103,6 +108,7 @@ export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos }) 
                 </Opcao>
             </div>
             <Form assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos}/>
+            {assentos.length === 0 ? '' : <Footer info={assentos} />}
         </AssentosContainer>
     )
 }
@@ -181,11 +187,11 @@ input {
     height: 51px;
     border-radius: 3px;
     border: 1px solid #D4D4D4;
+    padding-left: 18px;
 }
 
 input::-webkit-input-placeholder {
     font-style: italic;
-    padding-left: 18px;
     color: #AFAFAF;
     font-size: 18px
 }

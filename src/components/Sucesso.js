@@ -12,5 +12,7 @@ export default function Sucesso() {
 }
 
 const SucessoContainer = styled.div`
-
+display: flex;
+justify-content: center;
+align-items: center
 `

@@ -45,7 +45,7 @@ export default function Horarios({ setHorarioEscolhido }) {
                     <p>Selecione o horário</p>
                 </div>
                 {horarios.length === 0 ? <p>Carregando...</p> : horarios.days.map(h => <Horario setHorarioEscolhido={setHorarioEscolhido} h={h} />)}
-                <Footer horarios={horarios} />
+                {horarios.length === 0 ? '' : <Footer info={horarios} />}
             </HorariosContainer>
     )
 }

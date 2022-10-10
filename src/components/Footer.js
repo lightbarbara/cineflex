@@ -1,22 +1,30 @@
 import styled from "styled-components";
 
-export default function Footer({ horarios }) {
+export default function Footer(props) {
+    console.log(props)
     return (
-        <FooterContainer>
-            <div>
-                <img src={horarios.posterURL} alt='poster' />
-            </div>
-            <div>
-                <p>{horarios.title}</p>
-            </div>
-        </FooterContainer>
+        <>
+            {props.info.length !== 0 ? (
+                <FooterContainer>
+                    <div>
+                        {props.info.posterURL ? <img src={props.info.posterURL} alt='poster' /> : ''}
+                        {props.info.movie ? <img src={props.info.movie.posterURL} alt='poster' /> : ''}
+                    </div>
+                    <div>
+                        <p>{props.info.title ? props.info.title : ''}</p>
+                        <p>{props.info.movie ? props.info.movie.title : ''}</p>
+                        <p>{props.info.day ? `${props.info.day.weekday} - ${props.info.name}` : ''}</p>
+                    </div>
+                </FooterContainer>
+            ) : <p>Carregando...</p>}
+        </>
     )
 }
 
 const FooterContainer = styled.div`
 height: 117px;
 background-color: #DFE6ED;
-width: inherit;
+width: 375px;
 margin-top: 30px;
 border-top: 1px solid #9EADBA;
 display: flex;
@@ -42,11 +50,18 @@ img {
 
 div:nth-child(2) {
     display: flex;
+    width: inherit;
+    height: inherit;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    flex-direction: column;
+    width: 291px;
 }
 
 p {
-    font-size: 26px
+    display: flex;
+    width: inherit;
+    font-size: 26px;
+    flex-wrap: wrap;
 }
 `
