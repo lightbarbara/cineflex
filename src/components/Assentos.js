@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 function Assento({ a, assentosEscolhidos, setAssentosEscolhidos }) {
@@ -19,25 +19,56 @@ function Assento({ a, assentosEscolhidos, setAssentosEscolhidos }) {
     return (
         <AssentoContainer onClick={() => escolherAssento(a)} id={a.id} assentosEscolhidos={assentosEscolhidos} available={a.isAvailable}>
             <p>{a.name}</p>
-            {console.log(assentosEscolhidos)}
         </AssentoContainer>
     )
 }
 
-function Form() {
+function Form({assentosEscolhidos, setAssentosEscolhidos}) {
 
-    const [form, setForm] = {
+    const navigate = useNavigate()
+
+    const [form, setForm] = useState({
         ids: [],
         name: '',
         cpf: ''
+    })
+
+    function handleForm(e) {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    function sendForm(e) {
+        e.preventDefault()
+
+        const newForm = {
+            ...form,
+            ids: assentosEscolhidos
+        }
+
+        const promise = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', newForm)
+
+        promise.then(resposta => navigate('/sucesso'))
+
+        promise.catch(err => err.response.data)
+
+        setAssentosEscolhidos([])
+        setForm({
+            ids: [],
+            name: '',
+            cpf: ''
+        })
     }
 
     return (
-        <FormContainer>
+        <FormContainer onSubmit={sendForm}>
             <label htmlFor="name">Nome do comprador:</label>
-            <input name='name' />
+            <input value={form.name} name='name' required onChange={handleForm}/>
             <label htmlFor="cpf">CPF do comprador:</label>
-            <input name='cpf' />
+            <input value={form.cpf} name='cpf' required onChange={handleForm}/>
+            <button type='submit'>submit</button>
         </FormContainer>
     )
 }
@@ -78,7 +109,7 @@ export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos }) 
                     <p>Indisponível</p>
                 </Opcao>
             </div>
-            <Form />
+            <Form assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos}/>
         </AssentosContainer>
     )
 }
