@@ -6,7 +6,7 @@ export default function Filme({ nome, img, id, setFilmeEscolhido }) {
     return (
         <FilmeContainer>
             <Link onClick={() => setFilmeEscolhido(nome)} to={`filme/${id}`}>
-                <img src={img} alt='capa do filme' />
+                <img data-identifier="movie-outdoor" src={img} alt='capa do filme' />
             </Link>
         </FilmeContainer>
     )

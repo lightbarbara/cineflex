@@ -7,13 +7,13 @@ export default function Footer(props) {
             {props.info.length !== 0 ? (
                 <FooterContainer>
                     <div>
-                        {props.info.posterURL ? <img src={props.info.posterURL} alt='poster' /> : ''}
-                        {props.info.movie ? <img src={props.info.movie.posterURL} alt='poster' /> : ''}
+                        {props.info.posterURL ? <img data-identifier="movie-img-preview" src={props.info.posterURL} alt='poster' /> : ''}
+                        {props.info.movie ? <img data-identifier="movie-img-preview" src={props.info.movie.posterURL} alt='poster' /> : ''}
                     </div>
                     <div>
-                        <p>{props.info.title ? props.info.title : ''}</p>
-                        <p>{props.info.movie ? props.info.movie.title : ''}</p>
-                        <p>{props.info.day ? `${props.info.day.weekday} - ${props.info.name}` : ''}</p>
+                        <p data-identifier="movie-and-session-infos-preview">{props.info.title ? props.info.title : ''}</p>
+                        <p data-identifier="movie-and-session-infos-preview">{props.info.movie ? props.info.movie.title : ''}</p>
+                        <p data-identifier="movie-and-session-infos-preview">{props.info.day ? `${props.info.day.weekday} - ${props.info.name}` : ''}</p>
                     </div>
                 </FooterContainer>
             ) : <p>Carregando...</p>}

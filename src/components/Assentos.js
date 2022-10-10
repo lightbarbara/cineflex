@@ -60,10 +60,10 @@ function Form({assentosEscolhidos, setAssentosEscolhidos, form, setForm}) {
     return (
         <FormContainer onSubmit={sendForm}>
             <label htmlFor="name">Nome do comprador:</label>
-            <input placeholder='Digite seu nome...' value={form.name} name='name' required onChange={handleForm}/>
+            <input data-identifier="buyer-name-input" placeholder='Digite seu nome...' value={form.name} name='name' required onChange={handleForm}/>
             <label htmlFor="cpf">CPF do comprador:</label>
-            <input placeholder="Digite seu CPF..." value={form.cpf} name='cpf' required onChange={handleForm}/>
-            <button type='submit'>Reservar assento(s)</button>
+            <input data-identifier="buyer-cpf-input" placeholder="Digite seu CPF..." value={form.cpf} name='cpf' required onChange={handleForm}/>
+            <button data-identifier="reservation-btn" type='submit'>Reservar assento(s)</button>
         </FormContainer>
     )
 }
@@ -88,20 +88,20 @@ export default function Assentos({ assentosEscolhidos, setAssentosEscolhidos, fo
                 <p>Selecione o(s) assento(s)</p>
             </div>
             <div>
-                {assentos.length === 0 ? <p>Carregando...</p> : assentos.seats.map(a => <Assento assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} a={a} numerosEscolhidos={numerosEscolhidos} setNumerosEscolhidos={setNumerosEscolhidos} />)}
+                {assentos.length === 0 ? <p>Carregando...</p> : assentos.seats.map(a => <Assento data-identifier="seat" assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} a={a} numerosEscolhidos={numerosEscolhidos} setNumerosEscolhidos={setNumerosEscolhidos} />)}
             </div>
             <div>
                 <Opcao>
                     <AssentoContainer available={true} assentosEscolhidos={[0]} id={0}></AssentoContainer>
-                    <p>Selecionado</p>
+                    <p data-identifier="seat-selected-subtitle">Selecionado</p>
                 </Opcao>
                 <Opcao>
                     <AssentoContainer available={true} assentosEscolhidos={[0]} id={1}></AssentoContainer>
-                    <p>Disponível</p>
+                    <p data-identifier="seat-available-subtitle">Disponível</p>
                 </Opcao>
                 <Opcao>
                     <AssentoContainer available={false}></AssentoContainer>
-                    <p>Indisponível</p>
+                    <p data-identifier="seat-unavailable-subtitle">Indisponível</p>
                 </Opcao>
             </div>
             <Form assentosEscolhidos={assentosEscolhidos} setAssentosEscolhidos={setAssentosEscolhidos} form={form} setForm={setForm}/>

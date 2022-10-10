@@ -10,7 +10,6 @@ function Button({ hora, data, setHorarioEscolhido }) {
             <Link onClick={() => setHorarioEscolhido([data, hora.name])} to={`/sessao/${hora.id}`}>
                 {hora.name}
             </Link>
-            {console.log([data, hora.name])}
         </ButtonContainer>
     )
 }
@@ -18,9 +17,9 @@ function Button({ hora, data, setHorarioEscolhido }) {
 function Horario({ h, setHorarioEscolhido }) {
     return (
         <HorarioContainer>
-            <p>{`${h.weekday} - ${h.date}`}</p>
+            <p data-identifier="session-date">{`${h.weekday} - ${h.date}`}</p>
             <div>
-                {h.showtimes.map(hora => <Button data={h.date} setHorarioEscolhido={setHorarioEscolhido} hora={hora} />)}
+                {h.showtimes.map(hora => <Button data-identifier="hour-minute-btn" data={h.date} setHorarioEscolhido={setHorarioEscolhido} hora={hora} />)}
             </div>
         </HorarioContainer>
     )

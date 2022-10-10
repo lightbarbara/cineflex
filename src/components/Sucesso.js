@@ -24,21 +24,21 @@ export default function Sucesso({ filmeEscolhido, horarioEscolhido, numerosEscol
                 <p>Pedido feito</p>
                 <p>com sucesso!</p>
             </span>
-            <div>
+            <div data-identifier="movie-session-infos-reserve-finished">
                 <p>Filme e sessão</p>
                 <p>{filmeEscolhido}</p>
                 <p>{`${horarioEscolhido[0]}  ${horarioEscolhido[1]}`}</p>
             </div>
-            <div>
+            <div data-identifier="seat-infos-reserve-finished">
                 <p>Ingressos</p>
                 {numerosEscolhidos.map(n => <p>{`Assento ${n}`}</p>)}
             </div>
-            <div>
+            <div data-identifier="buyer-infos-reserve-finished">
                 <p>Comprador</p>
                 <p>{`Nome: ${form.name}`}</p>
                 <p>{`CPF: ${form.cpf}`}</p>
             </div>
-            <Button onClick={restart}>Voltar pra Home</Button>
+            <Button data-identifier="back-to-home-btn" onClick={restart}>Voltar pra Home</Button>
         </SucessoContainer>
     )
 }
